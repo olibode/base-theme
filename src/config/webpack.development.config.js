@@ -30,11 +30,12 @@ const FallbackPlugin = require('./FallbackPlugin');
 
 const projectRoot = path.resolve(__dirname, '..', '..');
 const magentoRoot = path.resolve(projectRoot, '..', '..', '..', '..', '..');
-const fallbackRoot = path.resolve(magentoRoot, 'vendor', 'scandipwa', 'source');
+// const fallbackRoot = path.resolve(magentoRoot, 'vendor', 'scandipwa', 'source');
+const fallbackRoot = projectRoot;
 
 const baseUrl = process.env.MAGENTO_BASEURL
     ? url.parse(process.env.MAGENTO_BASEURL).host
-    : 'scandipwa.local';
+    : 'local.m2pwa.com';
 
 const prepareProxy = () => {
     // eslint-disable-next-line global-require
@@ -160,6 +161,7 @@ module.exports = {
     },
 
     devServer: {
+        disableHostCheck: true,
         watchContentBase: true,
         publicPath: '/',
         historyApiFallback: {
@@ -175,7 +177,7 @@ module.exports = {
         host: '0.0.0.0',
         public: baseUrl,
         allowedHosts: [
-            '.local'
+            'local.m2pwa.com'
         ],
         proxy: prepareProxy()
     },

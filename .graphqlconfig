@@ -1,7 +1,7 @@
 {
     "extensions": {
         "endpoints": {
-            "dev": "https://scandipwa.local/graphql"
-        }
+      		"dev": "https://local.m2pwa.com/graphql"  
+	}
     }
 }

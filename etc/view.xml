@@ -24,6 +24,10 @@
             <image id="scandipwa_small_image" type="image">
                 <width>350</width>
             </image>
+            <image id="new_products_content_widget_grid" type="small_image">
+                <width>240</width>
+                <height>300</height>
+            </image>
         </images>
     </media>
 </view>

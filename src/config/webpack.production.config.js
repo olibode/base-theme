@@ -35,7 +35,7 @@ const fallbackRoot = path.resolve(magentoRoot, 'vendor', 'scandipwa', 'source');
 
 const staticVersion = Date.now();
 const fallbackThemeSpecifier = path.relative(path.resolve(projectRoot, '../..'), projectRoot);
-const publicPath = `/static/version${staticVersion}/frontend/${fallbackThemeSpecifier}/en_US/Magento_Theme/`;
+const publicPath = `/static/version${staticVersion}/frontend/${fallbackThemeSpecifier}/en_AU/Magento_Theme/`;
 
 const webpackConfig = ([lang, translation]) => ({
     resolve: {
@@ -176,4 +176,4 @@ const webpackConfig = ([lang, translation]) => ({
     ]
 });
 
-module.exports = mapTranslationsToConfig(['en_US'], webpackConfig);
+module.exports = mapTranslationsToConfig(['en_AU'], webpackConfig);
