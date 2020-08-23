@@ -21,7 +21,7 @@ import { paymentMethodsType } from 'Type/Checkout';
 import BraintreeDropIn from 'Util/Braintree';
 
 import CheckoutPayments from './CheckoutPayments.component';
-import { BRAINTREE, KLARNA, STRIPE } from './CheckoutPayments.config';
+import { BRAINTREE, KLARNA, STRIPE, EWAYRAPID } from './CheckoutPayments.config';
 
 export const mapDispatchToProps = (dispatch) => ({
     showError: (message) => dispatch(showNotification('error', message))
@@ -45,8 +45,9 @@ export class CheckoutPaymentsContainer extends PureComponent {
     dataMap = {
         [BRAINTREE]: this.getBraintreeData.bind(this),
         [STRIPE]: this.getStripeData.bind(this),
-        [KLARNA]: this.getKlarnaData.bind(this)
-    };
+        [KLARNA]: this.getKlarnaData.bind(this),
+        [EWAYRAPID]: this.getEwayData.bind(this)
+        };
 
     constructor(props) {
         super(props);
@@ -82,6 +83,22 @@ export class CheckoutPaymentsContainer extends PureComponent {
 
     getStripeData() {
         return { asyncData: this.stripeRef.submit() };
+    }
+
+    getEwayData() {
+        const inputs = document.getElementById('Ewayrapid').getElementsByTagName('input');
+        const fields = Object.values(inputs);
+        for (const field of fields) {
+            if (field.name == 'name') var Name = field.value;
+            if (field.name == 'number') var Number = field.value.replace(/ /g,'');
+            if (field.name == 'cvc') var CVN = field.value;
+            if (field.name == 'expiry') {
+                var date = field.value.split('/');
+                var ExpiryMonth = date[0];
+                var ExpiryYear = date[1];
+            }
+        }
+        return { asyncData: { Name, Number,ExpiryMonth, ExpiryYear,CVN } };
     }
 
     collectAdditionalData = () => {

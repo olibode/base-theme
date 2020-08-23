@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { BRAINTREE, KLARNA, STRIPE } from 'Component/CheckoutPayments/CheckoutPayments.config';
+import { BRAINTREE, KLARNA, STRIPE, EWAYRAPID } from 'Component/CheckoutPayments/CheckoutPayments.config';
 import {
     TERMS_AND_CONDITIONS_POPUP_ID
 } from 'Component/CheckoutTermsAndConditionsPopup/CheckoutTermsAndConditionsPopup.config';
@@ -153,6 +153,12 @@ export class CheckoutBillingContainer extends PureComponent {
         const { paymentMethod: code } = this.state;
 
         switch (code) {
+        case EWAYRAPID:
+            const [CardData] = asyncData;
+            return {
+                code,
+                additional_data: CardData
+            };
         case BRAINTREE:
             const [{ nonce }] = asyncData;
 

@@ -17,3 +17,4 @@ export const CHECK_MONEY = 'checkmo';
 export const PAYPAL_EXPRESS = 'paypal_express';
 export const PAYPAL_EXPRESS_CREDIT = 'paypal_express_bml';
 export const STRIPE = 'stripe_payments';
+export const EWAYRAPID = 'ewayrapid';

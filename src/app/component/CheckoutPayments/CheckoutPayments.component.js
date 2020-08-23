@@ -22,6 +22,7 @@ import NotSupportedPayment from 'Component/NotSupportedPayment';
 import PayPal from 'Component/PayPal';
 import Stripe from 'Component/Stripe';
 import { paymentMethodsType } from 'Type/Checkout';
+import Ewayrapid from 'Component/Ewayrapid';
 
 import {
     BRAINTREE,
@@ -29,7 +30,8 @@ import {
     KLARNA,
     PAYPAL_EXPRESS,
     PAYPAL_EXPRESS_CREDIT,
-    STRIPE
+    STRIPE,
+    EWAYRAPID
 } from './CheckoutPayments.config';
 
 class CheckoutPayments extends PureComponent {
@@ -50,7 +52,8 @@ class CheckoutPayments extends PureComponent {
             PAYPAL_EXPRESS,
             PAYPAL_EXPRESS_CREDIT,
             CHECK_MONEY,
-            STRIPE
+            STRIPE,
+            EWAYRAPID
         ]).isRequired,
         billingAddress: PropTypes.shape({
             city: PropTypes.string,
@@ -73,14 +76,22 @@ class CheckoutPayments extends PureComponent {
                 PropTypes.array
             ]),
             telephone: PropTypes.string
-        }).isRequired
+        }).isRequired,
+        creditCardDetails: PropTypes.shape({
+            Name: PropTypes.string,
+            Number: PropTypes.string,
+            ExpiryMonth: PropTypes.string,
+            ExpiryYear: PropTypes.string,
+            CVN: PropTypes.string
+        })
     };
 
     paymentRenderMap = {
         [BRAINTREE]: this.renderBrainTreePayment.bind(this),
         [STRIPE]: this.renderStripePayment.bind(this),
         [KLARNA]: this.renderKlarnaPayment.bind(this),
-        [PAYPAL_EXPRESS_CREDIT]: this.renderNotSupported.bind(this)
+        [PAYPAL_EXPRESS_CREDIT]: this.renderNotSupported.bind(this),
+        [EWAYRAPID]: this.renderEwayrapid.bind(this)
     };
 
     state = {
@@ -140,6 +151,18 @@ class CheckoutPayments extends PureComponent {
     renderKlarnaPayment() {
         const { setOrderButtonEnableStatus } = this.props;
         return <Klarna setOrderButtonEnableStatus={ setOrderButtonEnableStatus } />;
+    }
+
+    renderEwayrapid() {
+        const {
+            billingAddress
+        } = this.props;
+
+        return (
+            <Ewayrapid
+              billingAddress={ billingAddress }
+            />
+        );
     }
 
     renderNotSupported() {
